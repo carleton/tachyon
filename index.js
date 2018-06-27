@@ -74,7 +74,7 @@ module.exports.resizeBuffer = function(buffer, args, callback) {
 							? args.crop.split(',')
 							: args.crop;
 
-					// convert percantages to px values
+					// convert percentages to px values
 					cropValues = cropValues.map(function(value, index) {
 						if (value.indexOf('px') > -1) {
 							return Number(value.substr(0, value.length - 2));
@@ -88,12 +88,39 @@ module.exports.resizeBuffer = function(buffer, args, callback) {
 						}
 					});
 
-					image.extract({
-						left: cropValues[0],
-						top: cropValues[1],
-						width: cropValues[2],
-						height: cropValues[3],
+					// If count is not 4 the server fatals.
+					numericCrops = function( value ) { return isNaN( value ) };
+					if ( 4 !== cropValues.filter( numericCrops ).length ) {
+						image.extract({
+							left: cropValues[0],
+							top: cropValues[1],
+							width: cropValues[2],
+							height: cropValues[3],
+						});
+					}
+				}
+
+				if (args.croppx) {
+					var cropValues =
+						    typeof args.croppx === 'string'
+							    ? args.croppx.split(',')
+							    : args.croppx;
+
+					cropValues = cropValues.map(function(value, index) {
+						return parseInt( Number( value ).toFixed(0) );
 					});
+
+
+					// If count is not 4 the server fatals.
+					numericCrops = function( value ) { return isNaN( value ) };
+					if ( 4 !== cropValues.filter( numericCrops ).length ) {
+						image.extract({
+							left: cropValues[0],
+							top: cropValues[1],
+							width: cropValues[2],
+							height: cropValues[3],
+						});
+					}
 				}
 
 				// resize

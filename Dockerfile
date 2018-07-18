@@ -16,4 +16,5 @@ ARG AWS_S3_BUCKET
 
 # Start the reactor
 EXPOSE 8080
+USER node
 CMD [ "node", "server.js" ]

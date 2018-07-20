@@ -43,6 +43,12 @@ module.exports.resizeBuffer = function(buffer, args, callback) {
 		try {
 			var image = sharp(buffer).withMetadata();
 
+			image.metadata()
+				.then(function(metadata) {
+					currentWidth  = metadata.width;
+					currentHeight = metadata.height;
+				});
+
 			return image.metadata(function(err, metadata) {
 				if (err) {
 					reject(err);
@@ -94,8 +100,8 @@ module.exports.resizeBuffer = function(buffer, args, callback) {
 						image.extract({
 							left: cropValues[0],
 							top: cropValues[1],
-							width: cropValues[2],
-							height: cropValues[3],
+							width: cropValues[2] - ( currentWidth = cropValues[0]),
+							height: cropValues[3] - ( currentHeight = cropValues[1]),
 						});
 					}
 				}

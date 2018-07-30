@@ -100,8 +100,8 @@ module.exports.resizeBuffer = function(buffer, args, callback) {
 						image.extract({
 							left: cropValues[0],
 							top: cropValues[1],
-							width: cropValues[2] - ( currentWidth = cropValues[0]),
-							height: cropValues[3] - ( currentHeight = cropValues[1]),
+							width: ( cropValues[0] + cropValues[2] ) > currentWidth ? cropValues[2] = currentWidth - cropValues[2] : cropValues[2],
+							height: ( cropValues[1] + cropValues[3] ) > currentHeight ? cropValues[3] = currentHeight - cropValues[3] : cropValues[3],
 						});
 					}
 				}

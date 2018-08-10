@@ -101,12 +101,17 @@ module.exports.resizeBuffer = function(buffer, args, callback) {
                             }
                         });
 
-                        image.extract({
-                            left: cropValues[0],
-                            top: cropValues[1],
-                            width: cropValues[2],
-                            height: cropValues[3],
-                        });
+                        // avoid fatal error if there are not 4 cropValues that are valid numbers
+                        numericCrops = function( value ) { return !isNaN( value ) };
+                        if ( 4 === cropValues.filter( numericCrops ).length ) {
+                            console.log(cropValues);
+                            image.extract({
+                                left: cropValues[0],
+                                top: cropValues[1],
+                                width: cropValues[2],
+                                height: cropValues[3],
+                            });
+                        }
                     }
 
                     // get zoom value

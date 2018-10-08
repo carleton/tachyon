@@ -1,4 +1,4 @@
-FROM node:8.11.3-slim
+FROM node:8.12
 MAINTAINER Robert O\'Rourke "rob@hmn.md"
 
 # Install libvips

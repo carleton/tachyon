@@ -24,11 +24,11 @@
   "license": "ISC",
   "dependencies": {
     "animated-gif-detector": "^1.2.0",
-    "sharp": "^0.20.0",
+    "sharp": "^0.21.0",
     "smartcrop-sharp": "^2.0.3"
   },
   "devDependencies": {
-    "aws-sdk": "^2.276.1",
+    "aws-sdk": "^2.329.0",
     "cli-table": "^0.3.1",
     "filesize": "^3.5.10"
   }

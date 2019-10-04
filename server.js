@@ -32,7 +32,14 @@ http.createServer( function( request, response ) {
 		return response.end()
 	}
 
-	return tachyon.s3( config, decodeURI( params.pathname.substr(1) ), params.query, function( err, data, info ) {
+	let args = params.query;
+
+	let accept = request.headers['accept'] ? request.headers['accept'] : "";
+	if (accept.includes('webp')) {
+		args.webp = true
+	}
+
+	return tachyon.s3( config, decodeURI( params.pathname.substr(1) ), args, function( err, data, info ) {
 		if ( err ) {
 			if ( debug ) {
 				console.error( Date(), err )
